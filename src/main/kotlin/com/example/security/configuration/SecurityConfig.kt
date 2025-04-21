@@ -23,6 +23,7 @@ class SecurityConfig(@Lazy private val tokenService: TokenService) {
             authorizeRequests {
                 authorize(HttpMethod.POST, "/api/login", permitAll)
                 authorize(HttpMethod.POST, "/api/register", permitAll)
+                authorize(HttpMethod.GET, "/api/test", hasRole("ADMIN"))
                 authorize(anyRequest, authenticated)
             }
             cors {

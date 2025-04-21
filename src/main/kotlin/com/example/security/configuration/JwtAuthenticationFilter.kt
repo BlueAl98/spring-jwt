@@ -25,7 +25,10 @@ class JwtAuthenticationFilter(
                 val user = tokenService.parseToken(token)
                     ?: throw InvalidBearerTokenException("Invalid token")
 
-                val authorities = listOf(SimpleGrantedAuthority("USER"))
+              //  val authorities = listOf(SimpleGrantedAuthority("USER"))
+
+                val authorities = listOf(SimpleGrantedAuthority("ROLE_${user.role.name}"))
+
                 val authentication = UsernamePasswordAuthenticationToken(
                     user, null, authorities
                 )

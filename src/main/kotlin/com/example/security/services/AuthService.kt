@@ -5,16 +5,18 @@ import com.example.security.dto.LoginDto
 import com.example.security.dto.LoginResponseDto
 import com.example.security.dto.RegisterDto
 import com.example.security.model.User
+import com.example.security.repository.RoleRepository
 import com.example.security.repository.UserRepository
 import org.springframework.context.annotation.Lazy
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 
 @Service
-class UserService(
+class AuthService(
     private val userRepository: UserRepository,
     private val hashService: HashService,
-    @Lazy private val tokenService: TokenService
+    @Lazy private val tokenService: TokenService,
+    private val roleRepository: RoleRepository
     ) {
 
     fun registerUser(registerUser: RegisterDto): LoginResponseDto{
@@ -23,9 +25,14 @@ class UserService(
             throw ApiException("Name already exists", HttpStatus.NOT_ACCEPTABLE)
         }
 
+      val rol = roleRepository.findById(registerUser.roleId).orElseThrow{
+            ApiException("El role id no existe", HttpStatus.NOT_FOUND)
+        }
+
         val user = User(
             username = registerUser.name ,
-            password = hashService.hashBcrypt(registerUser.password)
+            password = hashService.hashBcrypt(registerUser.password),
+            role = rol
         )
 
         userRepository.save(user)

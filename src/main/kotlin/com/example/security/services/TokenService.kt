@@ -11,7 +11,7 @@ import java.time.temporal.ChronoUnit
 class TokenService (
     private val jwtEncoder: JwtEncoder,
     private val jwtDecoder: JwtDecoder,
-    private val userService: UserService
+    private val userService: AuthService
 ){
 
     fun createToken(user: User): String {

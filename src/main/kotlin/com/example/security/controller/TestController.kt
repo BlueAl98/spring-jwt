@@ -1,11 +1,8 @@
 package com.example.security.controller
 
-import com.example.security.dto.LoginResponseDto
-import com.example.security.dto.RegisterDto
-import com.example.security.model.User
 import com.example.security.services.HashService
 import com.example.security.services.TokenService
-import com.example.security.services.UserService
+import com.example.security.services.AuthService
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -13,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 class TestController(
     private val hashService: HashService,
     private val tokenService: TokenService,
-    private val userService: UserService
+    private val userService: AuthService
 ) {
 
     @GetMapping

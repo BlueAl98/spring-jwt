@@ -3,7 +3,7 @@ package com.example.security.controller
 import com.example.security.dto.LoginDto
 import com.example.security.dto.LoginResponseDto
 import com.example.security.dto.RegisterDto
-import com.example.security.services.UserService
+import com.example.security.services.AuthService
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api")
-class UserController (private val userService: UserService){
+class AuthController (private val userService: AuthService){
 
     @PostMapping("/login")
     fun login(@RequestBody payload: LoginDto): LoginResponseDto {
